@@ -63,6 +63,12 @@ in the Room:\n\n`;
 
   room.on('participantDisconnected', participant => {
     info(`RemoteParticipant ${participant.sid} disconnected.`);
+    const p = [...room.participants.values()];
+  if (!p.length) {
+    info('There are no RemoteParticipants in the Room. leaving');
+    shouldClose = true;
+    close();
+  }
   });
 
   room.on('trackSubscribed', (track, participant) => {
